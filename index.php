@@ -1,11 +1,8 @@
 <?php
     session_start();
-    session_unset();
-    if (isset($_POST["un"]) && isset($_POST["pw"])) {
-        // Generic Password check, to be replaced later
-        if ($_POST["un"] == "Richard" && $_POST["pw"] == "Schnitzel") {
-            $_SESSION["username"] = $_POST["un"];
-        }
+    // When a logout request is posted, wipe the session
+    if (isset($_POST["logout"])) {
+        session_unset();
     }
 ?>
 <!DOCTYPE html>
@@ -16,14 +13,34 @@
     <title>Generic Internet Service</title>
 </head>
 <body>
-    <?php
-    if (!isset($_SESSION["username"])) {
-        require("./templates/login.php");
-    } else {
-        echo "Welcome " . $_SESSION["username"] . "!";
-        require("./templates/admin.php");
-    }
+    <header></header>
     
-    ?>
+    <main>
+        <?php
+        // Here we determine wether a user is logged in and display the corresponding content
+        if (!isset($_SESSION["username"])) {
+
+            if (isset($_POST["un"]) && isset($_POST["pw"])) {
+                // Generic Password check, to be replaced later
+                if ($_POST["un"] == "Richard" && $_POST["pw"] == "Schnitzel") {
+                    session_unset();
+                    $_SESSION["username"] = $_POST["un"];
+                } else {
+                    require("./templates/wrongpw.php");
+                    require("./templates/login.php");
+                } 
+            } else {
+                require("./templates/login.php");
+            }
+        } 
+        if (isset($_SESSION["username"])) {
+            echo "Welcome " . $_SESSION["username"] . "!";
+            require("./templates/admin.php");
+        }
+        ?>
+    </main>
+
+    <footer></footer>
+
 </body>
 </html>

@@ -31,4 +31,14 @@
         session_unset();
         session_destroy();
     }
+    
+    // Hashing experiments
+    /*
+    $salt = bin2hex(random_bytes(8));
+    $pepper = "TheSecretLifeOfPi";
+    $hash = hash("sha256", "Richard" . $salt . $pepper);
+    */
 
+    // password_hash($pwd, PASSWORD_DEFAULT, ["cost" => 12]); // generates hashed pw
+    
+    // password_verify($pwdLogin, $hasedPwd); //returns true/false

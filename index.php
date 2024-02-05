@@ -1,9 +1,5 @@
 <?php
-    session_start();
-    // When a logout request is posted, wipe the session
-    if (isset($_POST["logout"])) {
-        session_unset();
-    }
+    require("./config.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
